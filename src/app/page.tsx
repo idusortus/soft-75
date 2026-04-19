@@ -65,8 +65,10 @@ export default function TodayPage() {
             {totalProgress}/5{' '}
             {allDone ? (
               <span className="text-success font-medium">All done 🎉</span>
+            ) : totalProgress > 0 ? (
+              <span>done · <span className="text-xs text-text-muted/70">progress saved</span></span>
             ) : (
-              'tasks done'
+              'tasks to go'
             )}
           </p>
         </div>

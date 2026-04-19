@@ -5,6 +5,16 @@ import { getTodayLog, saveJournalEntry, setMindfulnessType, toggleTask, upsertLo
 import type { DailyLog, MindfulnessType, TaskKey } from '@/lib/types'
 import { isLogComplete, todayStr } from '@/lib/utils'
 
+const EMPTY_LOG_SCAFFOLD: Omit<DailyLog, 'id' | 'user_id' | 'log_date' | 'created_at' | 'updated_at'> = {
+  exercise_done: false,
+  mindfulness_type: null,
+  mindfulness_done: false,
+  water_done: false,
+  diet_done: false,
+  journal_entry: '',
+  is_complete: false,
+}
+
 export function useTodayLog(userId: string | undefined) {
   const date = todayStr()
 
@@ -19,6 +29,16 @@ export function useTodayLog(userId: string | undefined) {
   const toggle = async (task: TaskKey, value: boolean) => {
     if (!userId) return
 
+    // Optimistic scaffold for first toggle of the day (log is null)
+    const optimisticBase = log ?? {
+      ...EMPTY_LOG_SCAFFOLD,
+      id: 'optimistic',
+      user_id: userId,
+      log_date: date,
+      created_at: new Date().toISOString(),
+      updated_at: new Date().toISOString(),
+    }
+
     await mutate(
       async () => {
         const updated = await toggleTask(userId, date, task, value)
@@ -30,7 +50,7 @@ export function useTodayLog(userId: string | undefined) {
         return updated
       },
       {
-        optimisticData: log ? { ...log, [task]: value } : undefined,
+        optimisticData: { ...optimisticBase, [task]: value } as DailyLog,
         rollbackOnError: true,
       }
     )

@@ -14,6 +14,7 @@ interface TaskCardProps {
 
 export function TaskCard({ task, done, onToggle, disabled = false, children }: TaskCardProps) {
   const [animating, setAnimating] = useState(false)
+  const [justSaved, setJustSaved] = useState(false)
 
   const handleToggle = () => {
     if (disabled) return
@@ -22,6 +23,8 @@ export function TaskCard({ task, done, onToggle, disabled = false, children }: T
       setTimeout(() => setAnimating(false), 220)
     }
     onToggle(!done)
+    setJustSaved(true)
+    setTimeout(() => setJustSaved(false), 1800)
   }
 
   return (
@@ -65,15 +68,28 @@ export function TaskCard({ task, done, onToggle, disabled = false, children }: T
           </p>
         </div>
 
-        {/* Check indicator */}
-        <div
-          className={clsx(
-            'w-6 h-6 rounded-full border-2 shrink-0 flex items-center justify-center text-xs font-bold transition-all duration-200',
-            done ? 'bg-white/25 border-white/50 text-white' : 'border-border',
+        {/* Check indicator / saved flash */}
+        <div className="shrink-0 flex flex-col items-center gap-1">
+          <div
+            className={clsx(
+              'w-6 h-6 rounded-full border-2 flex items-center justify-center text-xs font-bold transition-all duration-200',
+              done ? 'bg-white/25 border-white/50 text-white' : 'border-border',
+            )}
+            aria-hidden="true"
+          >
+            {done && '✓'}
+          </div>
+          {justSaved && (
+            <span
+              className={clsx(
+                'text-[10px] font-semibold leading-none transition-opacity duration-300',
+                done ? 'text-white/70' : 'text-text-muted',
+              )}
+              aria-live="polite"
+            >
+              saved
+            </span>
           )}
-          aria-hidden="true"
-        >
-          {done && '✓'}
         </div>
       </button>
 
