@@ -1,0 +1,105 @@
+@import "tailwindcss";
+
+@theme {
+  --color-bg: #0f0f0f;
+  --color-surface: #1a1a1a;
+  --color-surface-2: #242424;
+  --color-border: #2e2e2e;
+  --color-text: #f0f0f0;
+  --color-text-muted: #808080;
+  --color-accent-from: #7c3aed;
+  --color-accent-to: #3b82f6;
+  --color-success: #22c55e;
+  --color-danger: #ef4444;
+
+  --font-sans: "Inter", system-ui, -apple-system, sans-serif;
+  --radius-card: 1rem;
+  --radius-btn: 0.625rem;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  background-color: var(--color-bg);
+  color: var(--color-text);
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  min-block-size: 100dvh;
+  overscroll-behavior: none;
+}
+
+button,
+[role="button"] {
+  touch-action: manipulation;
+}
+
+/* Gradient text utility */
+.gradient-text {
+  background: linear-gradient(135deg, var(--color-accent-from), var(--color-accent-to));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* Gradient border utility */
+.gradient-border {
+  border: 1px solid transparent;
+  background:
+    linear-gradient(var(--color-surface), var(--color-surface)) padding-box,
+    linear-gradient(135deg, var(--color-accent-from), var(--color-accent-to)) border-box;
+}
+
+/* Glow animation for all-tasks-complete state */
+@keyframes glow-pulse {
+  0%,
+  100% {
+    box-shadow: 0 0 20px rgba(124, 58, 237, 0.3);
+  }
+  50% {
+    box-shadow:
+      0 0 40px rgba(124, 58, 237, 0.6),
+      0 0 80px rgba(59, 130, 246, 0.3);
+  }
+}
+
+.glow-pulse {
+  animation: glow-pulse 2s ease-in-out infinite;
+}
+
+/* Streak golden glow for 7+ day streaks */
+@keyframes streak-glow {
+  0%,
+  100% {
+    filter: drop-shadow(0 0 8px rgba(251, 191, 36, 0.4));
+  }
+  50% {
+    filter: drop-shadow(0 0 16px rgba(251, 191, 36, 0.8));
+  }
+}
+
+.streak-glow {
+  animation: streak-glow 1.8s ease-in-out infinite;
+}
+
+/* Satisfying pop when a task is checked */
+@keyframes check-pop {
+  0% {
+    transform: scale(1);
+  }
+  45% {
+    transform: scale(1.04);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+.check-pop {
+  animation: check-pop 0.22s ease-out;
+}
