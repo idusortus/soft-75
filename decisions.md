@@ -12,11 +12,11 @@
 
 ---
 
-## 2026-04-19 — Next.js static export on Azure Static Web Apps
-**Context:** Need public website, convert to PWA/SPA for mobile, low-cost hosting.
-**Choice:** Next.js `output: 'export'` (fully static). Azure Static Web Apps serves static files. No hybrid Next.js preview needed.
-**Trade-offs:** No SSR/RSC. All data fetching is client-side via Supabase JS. No API routes.
-**Revisit:** If we need server-side logic or auth.
+## 2026-04-19 — Vercel for static hosting (switched from Azure SWA)
+**Context:** Azure SWA auth/portal friction was unacceptable. Wanted zero-config deployment.
+**Choice:** Vercel free tier (Hobby). Connect GitHub repo, add env vars, done. No workflow YAML needed.
+**Trade-offs:** Hobby plan is non-commercial. Fine for a family tracker.
+**Revisit:** Never — unless usage exceeds free tier (100GB bandwidth/mo).
 
 ## 2026-04-19 — Supabase free tier as database
 **Context:** Need persistent storage for 2 users. Evaluated Supabase, Azure Cosmos DB, Neon, PlanetScale.

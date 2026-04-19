@@ -20,23 +20,17 @@ npm run dev
 # Open http://localhost:3000
 ```
 
-## 3. Azure Static Web Apps Deployment
+## 3. Vercel Deployment
 
 1. Push this repo to GitHub
-2. Go to [Azure Portal](https://portal.azure.com) → Create Resource → Static Web App
-3. Connect to your GitHub repo, branch: `main`
-4. Build details:
-   - App location: `/`
-   - Output location: `out`
-   - Skip build: ✅ (we build in CI)
-5. After creation, go to your SWA → Settings → Configuration → Add application settings:
+2. Go to [vercel.com](https://vercel.com) → Add New Project → Import your repo
+3. Vercel auto-detects Next.js — no build config changes needed
+4. Before deploying, add environment variables in the Vercel dashboard:
    - `NEXT_PUBLIC_SUPABASE_URL` = your Supabase project URL
    - `NEXT_PUBLIC_SUPABASE_ANON_KEY` = your Supabase anon key
-6. In GitHub repo → Settings → Secrets → Add:
-   - `NEXT_PUBLIC_SUPABASE_URL`
-   - `NEXT_PUBLIC_SUPABASE_ANON_KEY`
-   - `AZURE_STATIC_WEB_APPS_API_TOKEN` (from Azure Portal → SWA → Manage deployment token)
-7. Push to `main` — GitHub Actions will build and deploy automatically
+5. Click Deploy — done. Every push to `main` auto-deploys.
+
+No GitHub Actions workflow required. Vercel handles everything.
 
 ## 4. Customizing Users
 

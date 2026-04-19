@@ -8,7 +8,7 @@
 
 ## Blockers
 - Need Supabase project URL and anon key (user must create project at supabase.com and run supabase/schema.sql)
-- Need Azure Static Web Apps resource for deployment
+- Need Vercel project created and env vars set (see SETUP.md)
 
 ## Next
 - Create all UI components (TaskCard, ProgressRing, StreakBadge, JournalEntry, UserPicker, Navigation)
